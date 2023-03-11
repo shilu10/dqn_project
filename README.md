@@ -7,28 +7,62 @@ Source: https://gym.openai.com/envs/LunarLander-v2/
 ## Deep Q-Learning
 My implementation is inspired by the Deep Q-Learning algorithm as described in reference [2]. The input to my Deep Q-Learner are the observations of the Lunar Lander environment. The Deep Neural Network I used, is implemented in Keras (using Tensor Flow as backend). In short, the Deep Q-Learning algorithm selects actions according an ε-greedy policy. Each experience tuple <s, a, r, s’> is stored in a Replay Memory structure. On each algorithm iteration, a random sample of these stored memories (minibatch) is selected and Q-Learning updates are applied to these samples. The detailed algorithm and the advantages of this approach are described in detail in reference [2].
 
+## Deep Q-Network
+My implementation is inspired by the Deep Q-Learning algorithm as described in reference [2]. The input to my Deep Q-Learner are the observations of the Lunar Lander environment. The Deep Neural Network I used, is implemented in Keras (using Tensor Flow as backend). In short, the Deep Q-Learning algorithm selects actions according an ε-greedy policy. Each experience tuple <s, a, r, s’> is stored in a Replay Memory structure. On each algorithm iteration, a random sample of these stored memories (minibatch) is selected and Q-Learning updates are applied to these samples. The detailed algorithm and the advantages of this approach are described in detail in reference [2].
+
+## Setup for running in local environment
+Install python 3.7, if not already installed, to install in debian distro use,  
+
+    $ sudo apt install python3.7
+Install git, if not ready installed, to install in debian distro use,
+    
+    $ sudo apt install git 
+
+Open terminal and execute the below commands, 
+
+    $ git clone https://github.com/shilu10/dqn_project.git
+    $ cd dqn_project/ 
+    $ rm array_files/* 
+    $ rm model_training_results.txt
+    $ rm -r videos/ 
+    $ sudo apt install python3-pip 
+    $ python3 -m venv dqn_project_env/
+    $ source dqn_project_env/bin/activate/
+    $ pip3 install -r requirements.txt 
+
+Now, you are ready to go and run this project refer the below sections to understand the project structure to train and test the Reinforcement Learning Model.
+
 ## Components
 The implementation of the project is in python and it is included in the below files:
     lunarLander.py : Agent for landing successfully the 'Lunar Lander' which is implemented in OpenAI gym (reference [1]).
 
-    Classes:
+    Files:
 
-    deepNeuralNetwork.py : Deep Neural Network class implementation with Keras and Tensorflow (reference [3])
-    deepQNetwork.py      : Deep Q-Network class implementation (Implements a DQN, reference [2])
-    memory.py            : Memory class implementation (Replay Memory implementation, reference [2])
-    emulator.py          : RL Emulator class implementation (Implements a RL Emulator based on Open AI Gym, reference [1])
+    agent.py                 : 
+    network.py               : 
+    experience_replay.py     : 
+    telegram_bot.py          :
+    train.py                 :
+    eval.py                  : 
+    pong_env                 : 
+    lunarlander_env.py       :
+    build_model.py           : 
+    utils.py                 : 
+    writer.py                : 
+
 
 ## System Requirements (Dependencies)
-The script has been developed and verified in a Python 3.6 environment. Installation details of python, can be found in the following link: Python Installation
+The script has been developed and verified in a Python 3.7 environment. Installation details of python, can be found in the following link: Python Installation
 
 The script imports the below packages:
 
     matplotlib, version 2.2.2
     numpy, version 1.14.4
     pandas, version 0.23.0
-    gym, version 0.10.8
+    gymnasium, version 0.10.8
     Keras, version 2.2.4
-    tensorflow, version 1.11.0
+    tensorflow, version 2.11.0
+Need not install all of this packages, if you followed the instruction to setting up this project.
 
 
 ## Executing the project (Usage)
@@ -70,7 +104,8 @@ By loading the stored trained agent (file ./trained_model/DQN_Trained.h5), we ca
 
 The rendering feature of the OpenAI Gym is set to True for this step. Below is a succesful landing performed by the trained agent:
 
-
+## What's New 
+Implementation of Double DQN, Double Dueling DQN, and using the PER (Priortized Experience Replay).
 ## References
 1. OpenAI Gym, arXiv:1606.01540v1 [cs.LG].
 2. Playing Atari with Deep Reinforcement.

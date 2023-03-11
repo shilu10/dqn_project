@@ -5,11 +5,27 @@ Landing pad is always at coordinates (0,0). Coordinates are the first two number
 Source: https://gym.openai.com/envs/LunarLander-v2/
 
 ## Deep Q-Learning
-My implementation is inspired by the Deep Q-Learning algorithm as described in reference [2]. The input to my Deep Q-Learner are the observations of the Lunar Lander environment. The Deep Neural Network I used, is implemented in Keras (using Tensor Flow as backend). In short, the Deep Q-Learning algorithm selects actions according an ε-greedy policy. Each experience tuple <s, a, r, s’> is stored in a Replay Memory structure. On each algorithm iteration, a random sample of these stored memories (minibatch) is selected and Q-Learning updates are applied to these samples. The detailed algorithm and the advantages of this approach are described in detail in reference [2].
+- Q-Learning, is off-policy learning method and also it learns online, unlike Monte-Carlo Control, which learns Offline.
+- Q-learning is off-policy method of TD Learning, which uses the similar idea of Bellman Optimiality Equation, where for finding the Q(s, a) (q value for current state, action pair), it does a one-step look ahead by taking the action by following the Epsilon-Greedy Policy, and adds the Reward and maximum q-value of next state and all action.
 
-## Deep Q-Network
-My implementation is inspired by the Deep Q-Learning algorithm as described in reference [2]. The input to my Deep Q-Learner are the observations of the Lunar Lander environment. The Deep Neural Network I used, is implemented in Keras (using Tensor Flow as backend). In short, the Deep Q-Learning algorithm selects actions according an ε-greedy policy. Each experience tuple <s, a, r, s’> is stored in a Replay Memory structure. On each algorithm iteration, a random sample of these stored memories (minibatch) is selected and Q-Learning updates are applied to these samples. The detailed algorithm and the advantages of this approach are described in detail in reference [2].
+    <img title="a title" alt="Alt text" src="images/q_learning_formula.png">
 
+- Problem with naive Q-learning model, is that it uses the table lookup method, which is not effecient for the continuous action space.
+
+- So, Q-learning can be used with the function approximation, where instead of using the Tables for storing Q-values, Parametric function will be used instead. 
+- Q-learning with Deep Neural Nets(function approximator), there is a drawback in the naive Q-learning with Neural Nets, it does not have a stable training. So instead of Q-learning with Neural Nets, the DQN is preferred. And also q-learning with function appro can be thought of Supervised Learning, and supervised learning also have 2 assumptions. 
+    1. Stable target Value.
+    2. IID (Independent and Indentical Distrubution Data).
+Q-learning voilates both of the assumptions. 
+
+
+## Deep Q Network (DQN)
+- DQN, solves the problem of unstable training in the Q-learning with Neural Nets.
+- For solving the problem of stable target value, it uses the seperate network.
+- For solving the problem of non-idd data, it uses the replay buffer.
+- so in the DQN, there are two neural networks.
+    1. Target Q-value network.
+    2. Q-value network.
 ## Setup for running in local environment
 Install python 3.7, if not already installed, to install in debian distro use,  
 

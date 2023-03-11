@@ -14,8 +14,6 @@ class DeepQNetwork_3D:
     x = Conv2D(64, 4, strides=(2, 2), activation='relu', data_format="channels_first")(x)
     x = Conv2D(128, 3, strides=(1, 1), activation='relu', data_format="channels_first")(x)
     x = Flatten()(x)
-    x = Dense(128, activation="relu")(x)
-    x = Dropout(0.2)(x)
     x = Dense(256, activation="relu")(x)
     output = Dense(self.output_dim)(x)
 
@@ -31,15 +29,10 @@ class DeepQNetwork_2D:
 
   def build_model(self): 
     input = Input((self.input_dims))
-    x = Dense(32, activation="relu")(x)
-    x = Dropout(0.2)(x)
-    x = Dense(64, activation="relu")(x)
-    x = Dropout(0.2)(x)
     x = Dense(128, activation="relu")(x)
-    x = Dropout(0.2)(x)
     x = Dense(256, activation="relu")(x)
+    
     output = Dense(self.output_dim)(x)
-
     model = keras.Model(inputs=[input], outputs=[output])
 
     return model

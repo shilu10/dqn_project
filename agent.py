@@ -3,6 +3,7 @@ from build_model import *
 import tensorflow as tf
 import tensorflow.keras as keras
 from tensorflow.keras.optimizers import Adam
+from experience_replay import *
 
 #https://github.com/philtabor/Deep-Q-Learning-Paper-To-Code/blob/master/DQN/tf2/agent.py
 class Agent: 
@@ -81,11 +82,11 @@ class Agent:
         return loss
 
     def load_model(self): 
-        self.q_value_network = keras.models.load_model(self.fname+'q_value_network.hd5')
-        self.target_q_network = keras.models.load_model(self.fname+'target_q_network.hd5')
+        self.q_value_network = keras.models.load_model(self.fname+'q_value_network.hd5', save_format="hd5")
+        self.target_q_network = keras.models.load_model(self.fname+'target_q_network.hd5', save_format="hd5")
         print('[+] models loaded successfully')
 
     def save_model(self): 
-        self.q_value_network.save(self.fname+'q_value_network.hd5')
-        self.target_q_network.save(self.fname+'target_q_network.hd5')
+        self.q_value_network.save(self.fname+'q_value_network.hd5', save_format="hd5")
+        self.target_q_network.save(self.fname+'target_q_network.hd5', save_format="hd5")
         print('[+] models saved successfully')

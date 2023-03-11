@@ -6,11 +6,7 @@ from agent import *
 from trainer import *
 import numpy as np
 
-
-if not os.path.exists("array_files/"): 
-    os.mkdir("array_files/")
-    
-env = make_env("ALE/Pong-v5", "videos/", 50)
+env = make_env("LunarLander-v2", "videos/", 50)
 action_space = [_ for _ in range(env.action_space.n)]
 
 episodic_rewards_filename = 'array_files/episodic_reward.npy'
@@ -19,21 +15,21 @@ cum_avg_reward_filename = 'array_files/cum_avg_rewards.npy'
 losses_filename = 'array_files/losses.npy'
 
 agent_params = {
-    "gamma": 0.997, 
-    "lr": , 
+    "gamma": 0.98, 
+    "lr": 0.0005, 
     "input_dims": env.observation_space.shape,
     "mem_size" : 15000,
     "batch_size" : 32,
-    "replace" : 1000,
+    "replace" : 800,
     "algo" : "DQN",
-    "env_name" : "pong-v5",
+    "env_name" : "lunarlander",
     "n_actions" : len(action_space),
     "chkpt_dir": "tmp/dqn/"
 }
 
 trainer_params = {
     "noe": 500, 
-    "max_steps": 10000,
+    "max_steps": 1000,
     "max_eps": 1,
     "min_eps": 0.02,
     "eps_decay_rate": 1e-2,
@@ -60,4 +56,3 @@ if __name__ == "__main__":
    # plot_learning_curve(10, episode_rewards, epsilon_history, "plot_file")
 
    # eval_model(env, "keras model", "videos/", fps=10)
-

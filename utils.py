@@ -2,9 +2,9 @@ import collections
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import gym
+import gymnasium as gym
 import tensorflow as tf
-from gym.wrappers import *
+from gymnasium.wrappers import *
 
 
 def manage_memory():
@@ -48,10 +48,13 @@ def plot_learning_curve(x, scores, epsilons, filename, lines=None):
 
 
 def make_env(env_name, video_file_name, episode_freq_fo_video): 
-    env = gym.make(env_name)
-    env = AtariPreprocessing(env, 10, 4, 84, False, True)
-    env = FrameStack(env, 4, lz4_compress=False)
-    env = NormalizeObservation(env)
-    env = RecordVideo(env, video_file_name, lambda episode_id: episode_id % episode_freq_fo_video==0)
+    env = gym.make(env_name, render_mode="rgb_array")
+    if env_name.lower().startwith("p"): 
+        #env = AtariPreprocessing(env, 10, 4, 84, False, True)
+        env = ResizeObservation(env, 84)
+        env = GrayScaleObservation(env, keep_dim=False)
+        env = FrameStack(env, 4, lz4_compress=False)
+        env = NormalizeObservation(env)
+    #   env = RecordVideo(env, video_file_name, lambda episode_id: episode_id % episode_freq_fo_video==0)
 
     return env
